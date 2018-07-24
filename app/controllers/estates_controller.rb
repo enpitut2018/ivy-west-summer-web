@@ -1,5 +1,6 @@
 class EstatesController < ApplicationController
   def index
+    @estates = Estate.all
   end
 
   def new
@@ -9,6 +10,7 @@ class EstatesController < ApplicationController
   def create
     estate = Estate.new(estate_params)
     estate.save
+    redirect_to estates_path
   end
 
   def all
