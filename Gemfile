@@ -16,6 +16,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'semantic-ui-sass'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

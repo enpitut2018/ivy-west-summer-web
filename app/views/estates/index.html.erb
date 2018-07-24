@@ -1,43 +1,25 @@
-<div id="map" style="height: 1000px"></div>
-<%= link_to "不動産を登録する", new_estate_path, class: 'ui button' %>
-<% @estates.each do |estate| %>
-  <%= estate.name %><br />
-<% end %>
-
-<%# 不動産情報モーダル %>
-<%#
-<div class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-%>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
-  })
-});
-
-function initMap() {
-    var map = new google.maps.Map(
-        document.getElementById('map'), {
-            center: { lat: -25.363, lng: 131.044 },
-            zoom: 4
-        });
-};
-</script>
+<h1>不動産一覧</h1>
+<table class="ui celled table">
+  <thead>
+    <tr>
+    <th>ID</th>
+    <th>名前</th>
+    <th>緯度</th>
+    <th>経度</th>
+    <th>価格</th>
+    <th>住所</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @estates.each do |estate| %>
+    <tr>
+      <td><%= estate.id %></td>
+      <td><%= estate.name %></td>
+      <td><%= estate.longitude %></td>
+      <td><%= estate.latitude %></td>
+      <td><%= estate.price %></td>
+      <td><%= estate.address %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
