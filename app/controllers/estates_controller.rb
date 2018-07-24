@@ -10,13 +10,7 @@ class EstatesController < ApplicationController
   def create
     estate = Estate.new(estate_params)
     estate.save
-    redirect_to estates_path
-  end
-
-  def all
-    @estates = Estate.all
-
-    render 'all', formats: 'json', handlers: 'jbuilder'
+    redirect_to root_path
   end
 
   private
