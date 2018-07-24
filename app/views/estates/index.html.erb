@@ -1,5 +1,5 @@
 <div id="map" style="height: 1000px"></div>
-<%= link_to "不動産を登録する", new_estate_path %><br />
+<%= link_to "不動産を登録する", new_estate_path, class: 'ui button' %>
 <% @estates.each do |estate| %>
   <%= estate.name %><br />
 <% end %>
