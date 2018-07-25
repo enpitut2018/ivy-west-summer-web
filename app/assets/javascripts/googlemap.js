@@ -1,8 +1,5 @@
 window.addEventListener('load', function() {
     initMapWithUserPosition();
-    // google.maps.event.addListener(map, 'click', function(event) {
-    //     console.log(event)
-    // });
 });
 
 // mapを描画し、mapオブジェクトを返す。
@@ -15,6 +12,10 @@ function initMap(args) {
     return map
 }
 
+function getClickLatLng() {
+    return { lat: event.latLng.lat(), lng: event.latLng.lng() }
+}
+
 function initMapWithUserPosition() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -22,13 +23,18 @@ function initMapWithUserPosition() {
                 //取得したデータ
                 var data = position.coords;
                 var map = initMap({ lat: data.latitude, lng: data.longitude });
+                // 不動産データからピンを立つ。
                 putEstatePins(map);
+                google.maps.event.addListener(map, 'click', function(event) {
+                    $('.ui.modal').modal('show');
+                    $('#form-latitude').find('input').val(Number(event.latLng.lat()).toFixed(5));
+                    $('#form-longitude').find('input').val(Number(event.latLng.lng()).toFixed(5));
+                });
             },
             function(error) {
                 console.log('geolocation error');
             }
         );
-
     } else {
         alert("geolocation非対応!!");
     }
@@ -42,8 +48,6 @@ function putEstatePins(map) {
         success: function(data) {
             data.forEach(function(d) {
                 putPin({ lng: d.longitude, lat: d.latitude, map: map })
-                console.log('lat' + d.latitude)
-                console.log('lng' + d.longitude)
             });
         },
     });
