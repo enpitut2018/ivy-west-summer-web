@@ -1,0 +1,49 @@
+<div id="map"></div>
+<button class="ui teal basic button create-estate-button">
+  不動産を登録する
+</button>
+
+<%# 不動産情報モーダル %>
+<div class= "ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    不動産登録
+  </div>
+  <div class="content">
+    <div class="ui form">
+      <div class="inline field">
+        <%= form_with model: Estate.new do |f| %>
+          <div class="field">
+            <label>建物名</label>
+            <%= f.text_field :name %>
+          </div>
+          <div class="field">
+            <label>緯度</label>
+            <%= f.number_field :longitude %>
+          </div>
+          <div class="field">
+            <label>経度</label>
+            <%= f.number_field :latitude %>
+          </div>
+          <div class="field">
+            <label>価格</label>
+            <%= f.number_field :price %>
+          </div>
+          <div class="field">
+            <label>住所</label>
+            <%= f.text_field :address %>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit '登録', class: 'ui teal basic button', 'data-disable-with' => '送信中...' %>
+  </div>
+        <% end %>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>" async defer></script>
+<script type="text/javascript">
+  $('.create-estate-button').click(function(){
+    $('.ui.modal').modal('show');
+  });
+</script>

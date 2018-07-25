@@ -1,3 +1,7 @@
+window.addEventListener('load', function() {
+    map = initMap();
+});
+
 // mapを描画し、mapオブジェクトを返す。
 function initMap() {
     var map = new google.maps.Map(

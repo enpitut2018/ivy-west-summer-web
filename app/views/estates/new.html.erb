@@ -1,0 +1,13 @@
+<%= form_with model: Estate.new do |form| %>
+  <label>不動産名</label>
+  <%= form.text_field :name %><br />
+  <label>緯度</label>
+  <%= form.number_field :longitude %><br />
+  <label>経度</label>
+  <%= form.number_field :latitude %><br />
+  <label>値段</label>
+  <%= form.number_field :price %><br />
+  <label>住所</label>
+  <%= form.text_field :address %><br />
+  <%= form.submit %>
+<% end %>
