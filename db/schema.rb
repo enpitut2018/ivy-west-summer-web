@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20180724040159) do
 
   create_table "estates", force: :cascade do |t|
     t.string "name", null: false
-    t.decimal "longitude", precision: 9, scale: 6
-    t.decimal "latitude", precision: 9, scale: 6
+    t.decimal "longitude", precision: 9, scale: 6, null: false
+    t.decimal "latitude", precision: 9, scale: 6, null: false
     t.integer "price"
     t.string "address"
     t.datetime "created_at", null: false
