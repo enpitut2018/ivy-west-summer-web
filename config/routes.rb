@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api, format: 'json' do
     namespace :v1 do
-      resources :estates, only: [:index]
+      resources :estates, only: [:index, :show], param: :name
     end
   end
 end

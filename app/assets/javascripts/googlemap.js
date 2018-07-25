@@ -1,3 +1,7 @@
+window.addEventListener('load', function() {
+    drawMapWithCurrentUserPosition();
+})
+
 // // 登録ボタンを押したら、ピンを立てる。
 // $('#submit').find('input').on('click', function() {
 //     // 入力したデータを送る。
@@ -58,8 +62,37 @@ function putEstatePins(map) {
         type: 'get',
         success: function(data) {
             data.forEach(function(d) {
-                putPin({ lng: d.longitude, lat: d.latitude, map: map })
+                var marker = putPin({ name: d.name, lng: d.longitude, lat: d.latitude, map: map })
+                    // 一回しか発火しない
+                var listener = google.maps.event.addListenerOnce(marker, "click", function(params) {
+                    $('.ui.modal').modal('show');
+                    $.ajax({
+                        url: 'api/v1/estates/' + marker.title,
+                        type: 'get',
+                        success: function(data) {
+                            $('#form-name').val(data.name);
+                            $('#form-longitude').val(data.longitude);
+                            $('#form-latitude').val(data.latitude);
+                            $('#form-price').val(data.price);
+                            $('#form-address').val(data.address);
+                            console.log(data)
+                        }
+                    })
+                    console.log(marker.title)
+                });
+                console.log('lat' + d.latitude)
+                console.log('lng' + d.longitude)
             });
         },
     });
 }
+
+function putPin(args) {
+    var marker = new google.maps.Marker({
+        map: args.map,
+        position: new google.maps.LatLng(args.lng, args.lat),
+        title: args.name
+    });
+    console.log(marker)
+    return marker
+};
