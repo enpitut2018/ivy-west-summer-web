@@ -12,20 +12,22 @@ function initMap() {
     return map
 }
 
-// 不動産apiからdataを取得し、[{position: LatLng.obj}, ...]として返す。
-function getEstatePositions() {
+// 不動産apiからdataを取得し、Pinをさす。
+function putEstatePins() {
     $.ajax({
-        url: 'url',
-        type: 'get'
-    }).done(function(data, textStatus, jqXHR) {
-        data.forEach(function(d) {
-            features.push({ position: new google.maps.LatLng(d.lat, d.lng) })
-        });
-    }).fail(function(data, textStatus, jqXHR) {});
-    return features
+        url: '/api/v1/estates',
+        type: 'get',
+        success: function(data) {
+            data.forEach(function(d) {
+                putPin(d.latitude, d.longitude, map)
+                console.log('lat' + d.latitude)
+                console.log('lng' + d.longitude)
+            });
+        },
+    });
 }
 
-function setPin(lat, lng, map) {
+function putPin(lat, lng, map) {
     var marker = new google.maps.Marker({
         map: map,
         position: new google.maps.LatLng(lat, lng)
