@@ -36,12 +36,12 @@
       </div>
     </div>
   </div>
-  <div class="actions">
+  <div class="actions" id="submit">
     <%= f.submit '登録', class: 'ui teal basic button', 'data-disable-with' => '送信中...' %>
   </div>
         <% end %>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=drawMapWithCurrentUserPostion" async defer></script>
 <script type="text/javascript">
   $('.create-estate-button').click(function(){
     $('.ui.modal').modal('show');
