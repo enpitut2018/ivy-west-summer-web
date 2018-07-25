@@ -91,7 +91,8 @@ function putPin(args) {
     var marker = new google.maps.Marker({
         map: args.map,
         position: new google.maps.LatLng(args.lng, args.lat),
-        title: args.name
+        title: args.name,
+        icon:{url:"icons/icon-apart.png"},
     });
     console.log(marker)
     return marker
