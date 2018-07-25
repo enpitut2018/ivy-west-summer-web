@@ -1,121 +1,25 @@
-<head>
-  <title>Maps</title>
-
-     <meta name="viewport" content="initial-scale=1.0">
-     <meta charset="utf-8">
-     <style>
-         html, body {
-             height: 100%;
-             margin: 500;
-             padding: 0;
-         }
-         #map {
-             height: 500px;
-             width: 100%;
-         }
-     </style>
-
-</head>
-
-
-<body>
-
-<div id = "map">
-</div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLtgspPLWS8S-Hpyk-2McYYybL7f_vXNg&callback=initMap"
-        async defer></script>
-
-<script>
-
-var map;
-var marker;
-
-function initMap(){
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.658581, lng: 139.745433},
-    zoom: 4
-  });
-
-  var marker = new google.maps.Marker({ // マーカーの追加
-      position: {lat:35,lng:145}, // マーカーを立てる位置を指定
-      map: map // マーカーを立てる地図を指定
-   });
-
-}
-
-//-------現在位置を取得する記述---------//
-
-
-//現在地にピン刺して移動
-getUserPosition();
-function getUserPosition(){
-  //lat = 0;
-  if (navigator.geolocation)
-  {
-    //alert("対応！！")
-    navigator.geolocation.getCurrentPosition(
-      //第一引数
-      function(position)
-      {
-        //取得したデータ
-        var data = position.coords;
-        //データの中身
-        //緯度
-        lat = data.latitude;
-        //軽度
-        lng = data.longitude;
-
-        //高度
-        //var alt = data.altitude;
-        //緯度軽度，高度の精度
-        //var accLatlng = data.accuracy ;
-  			//var accAlt = data.altitudeAccuracy ;
-
-        //方角,0~360, 0北 90東 180南 270西
-  			//var heading = data.heading ;
-        //速度?
-  			//var speed = data.speed ;
-
-         console.log("new marker");
-
-         var latlng = new google.maps.LatLng( lat , lng ) ;
-                // 現在地の緯度経度を中心にマップを生成
-          map = new google.maps.Map(document.getElementById('map'), {
-          center: latlng,
-          zoom: 15
-          });
-
-          var marker = new google.maps.Marker({ // マーカーの追加
-              position: latlng, // マーカーを立てる位置を指定
-              map: map // マーカーを立てる地図を指定
-           });
-
-        //alert("現在位置の緯度 軽度 高度：["+lat+","+lng+"]\n.");
-
-      },
-      //第二引数
-      function(error){
-        var errorInfo = [
-      				"原因不明のエラーが発生しました…。" ,
-      				"位置情報の取得が許可されませんでした…。" ,
-      				"電波状況などで位置情報が取得できませんでした…。" ,
-      				"位置情報の取得に時間がかかり過ぎてタイムアウトしました…。"
-      	] ;
-        // エラーメッセージ
-  			var errorMessage = "[エラー番号: " + errorNo + "]\n" + errorInfo[ errorNo ] ;
-
-  			// アラート表示
-  			alert( errorMessage ) ;
-      }
-    );
-
-  }else{
-    alert("geolocation非対応!!")
-  }
-
-
-}
-
-
-</script>
-</body>
+<h1>不動産一覧</h1>
+<table class=“ui celled table”>
+ <thead>
+   <tr>
+   <th>ID</th>
+   <th>名前</th>
+   <th>緯度</th>
+   <th>経度</th>
+   <th>価格</th>
+   <th>住所</th>
+   </tr>
+ </thead>
+ <tbody>
+   <% @estates.each do |estate| %>
+   <tr>
+     <td><%= estate.id %></td>
+     <td><%= estate.name %></td>
+     <td><%= estate.longitude %></td>
+     <td><%= estate.latitude %></td>
+     <td><%= estate.price %></td>
+     <td><%= estate.address %></td>
+   </tr>
+   <% end %>
+ </tbody>
+</table>
