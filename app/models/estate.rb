@@ -13,5 +13,7 @@
 #
 
 class Estate < ApplicationRecord
-  validates :name, presence: true
+  validates :name,      presence: true
+  validates :longitude, presence: true
+  validates :latitude,  presence: true
 end
