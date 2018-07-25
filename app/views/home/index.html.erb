@@ -41,17 +41,9 @@
   </div>
         <% end %>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>" async defer></script>
 <script type="text/javascript">
-$('.create-estate-button').click(function(){
-  $('.ui.modal').modal('show');
-});
-
-function initMap() {
-    var map = new google.maps.Map(
-        document.getElementById('map'), {
-            center: { lat: -25.363, lng: 131.044 },
-            zoom: 4
-        });
-};
+  $('.create-estate-button').click(function(){
+    $('.ui.modal').modal('show');
+  });
 </script>
