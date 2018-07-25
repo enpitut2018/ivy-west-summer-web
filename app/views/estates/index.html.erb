@@ -1,0 +1,25 @@
+<h1>不動産一覧</h1>
+<table class="ui celled table">
+  <thead>
+    <tr>
+    <th>ID</th>
+    <th>名前</th>
+    <th>緯度</th>
+    <th>経度</th>
+    <th>価格</th>
+    <th>住所</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @estates.each do |estate| %>
+    <tr>
+      <td><%= estate.id %></td>
+      <td><%= estate.name %></td>
+      <td><%= estate.longitude %></td>
+      <td><%= estate.latitude %></td>
+      <td><%= estate.price %></td>
+      <td><%= estate.address %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
