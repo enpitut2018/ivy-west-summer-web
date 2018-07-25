@@ -41,7 +41,7 @@
   </div>
         <% end %>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
 <script type="text/javascript">
   $('.create-estate-button').click(function(){
     $('.ui.modal').modal('show');
