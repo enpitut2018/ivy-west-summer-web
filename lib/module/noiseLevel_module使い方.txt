@@ -1,0 +1,6 @@
+こんな感じで使える
+-----------
+require './noiseLevel_module'
+include NoiseLevel
+
+print(NoiseLevel.get_noise_level(36.073938, 140.112024))

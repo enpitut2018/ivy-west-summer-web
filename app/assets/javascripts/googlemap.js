@@ -1,12 +1,17 @@
 // ピンの保存用配列
 var MarkerArray = new Array();
 
-// windowがloadされたら呼び出す。
-window.addEventListener('load', function() {
+// DOMがロードされた時点で実行(loadよりも少し早い。)
+document.addEventListener("DOMContentLoaded", function() {
+    console.log('init... ');
     drawMapWithCurrentUserPosition();
-})
+    redrawPinsFromSearchForm();
+    // $('.ui.sidebar.bottom').sidebar('setting', 'transition', 'overlay');
+    console.log('init done!');
+});
 
-function drawMapWithCurrentUserPostion() {
+// 現在地を取得し、mapを表示し、DBから全てのピンを追加する。
+function drawMapWithCurrentUserPosition() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function(position) {
@@ -29,6 +34,7 @@ function drawMapWithCurrentUserPostion() {
     }
 }
 
+// 不動産のPinを立てる関数
 function putEstatePin(args) {
     var marker = putPin({ name: args.name, lng: args.lng, lat: args.lat, map: args.map, icon: args.icon });
     // pinを消す時のためにmarkerを保存して置く。
@@ -39,13 +45,16 @@ function putEstatePin(args) {
             url: 'api/v1/estates/' + marker.title,
             type: 'get',
             success: function(data) {
+                //bug
+                console.log($('.ui.modal').modal);
+                uimodal = $('.ui.modal');
+                //bug
                 $('.ui.modal').modal('show');
                 $('#form-name').val(data.name);
                 $('#form-longitude').val(data.longitude);
                 $('#form-latitude').val(data.latitude);
                 $('#form-price').val(data.price);
                 $('#form-address').val(data.address);
-                console.log(data);
             }
         })
     })
@@ -70,8 +79,6 @@ function putAllEstatePins(map) {
     });
 }
 
-
-
 function putPin(args) {
     var marker = new google.maps.Marker({
         map: args.map,
@@ -79,11 +86,8 @@ function putPin(args) {
         title: args.name,
         icon: args.icon,
     });
-
-    console.log(marker);
     return marker
 };
-
 
 function redrawPinsFromSearchForm() {
     // search-formをサブミットしたら発火
