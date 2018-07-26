@@ -13,11 +13,21 @@ ActiveAdmin.register Estate do
 # end
   active_admin_importable do |model, hash|
     model.create(
-      name:      hash[:name],
-      longitude: 0.000000, # @TODO 後で入力
-      latitude:  0.000000, # @TODO 後で入力
-      price:     hash[:price],
-      address:   hash[:address]
+      name:               hash[:name],
+      longitude:          0.000000, # @TODO 後で入力
+      latitude:           0.000000, # @TODO 後で入力
+      price:              hash[:price],
+      address:            hash[:address],
+      location1:          hash[:location1],
+      location2:          hash[:location2],
+      location3:          hash[:location3],
+      year:               hash[:year],
+      height:             hash[:height],
+      floor:              hash[:floor],
+      administration_fee: hash[:administration_fee],
+      note:               hash[:note],
+      floor_plan:         hash[:floor_plan],
+      area:               hash[:area]
     )
   end
 end

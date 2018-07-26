@@ -9,6 +9,7 @@
 # 管理人ユーザ
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
+if Rails.env.development?
 # 不動産情報サンプル
 Estate.create([
   {
@@ -43,3 +44,5 @@ Estate.create([
     address: 'サンプル住所2'
   }
 ])
+
+end
