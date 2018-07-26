@@ -50,12 +50,12 @@ ActiveRecord::Schema.define(version: 20180726012652) do
     t.string "name", null: false
     t.decimal "longitude", precision: 9, scale: 6, null: false
     t.decimal "latitude", precision: 9, scale: 6, null: false
-    t.string "price"
+    t.decimal "price", precision: 4, scale: 1
     t.string "address"
     t.string "location1"
     t.string "location2"
     t.string "location3"
-    t.string "year"
+    t.integer "year"
     t.string "height"
     t.string "floor"
     t.string "administration_fee"

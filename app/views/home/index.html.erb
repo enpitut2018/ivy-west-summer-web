@@ -1,33 +1,30 @@
 <div id="map"></div>
-<button class="ui teal basic button create-estate-button">
-  不動産を登録する
-</button>
 
 <%# Search Form %>
   <form id="search-form">
     <div class="field">
       <label>住所名</label>
-      <input id="adress" type="text" name="adress"></input>
+      <input id="adress" type="text" name="adress" value="つくば"></input>
     </div>
     <div class="field">
       <label>上限家賃</label>
-      <input id="upper-price" type="text" name="upper-price"></input>
+      <input id="upper-price" type="text" name="upper-price" value=10>万円未満</input>
     </div>
     <div class="field">
       <label>下限家賃</label>
-      <input id="lower-price" type="text" name="lower-price"></input>
+      <input id="lower-price" type="text" name="lower-price" value=1>万円以上</input>
     </div>
-    <div class="field">
-      <label>距離(半径)</label>
-      <input id="distance" type="text" name="distance"></input>
-    </div>
+    <!-- div class="field" -->
+      <!-- label>距離(半径)</label -->
+      <!-- input id="distance" type="text" name="distance"></input -->
+    <!-- /div -->
     <div class="field">
       <label>築年数</label>
-      <input id="years" type="text" name="years"></input>
+      <input id="years" type="text" name="years" value="20">年未満</input>
     </div>
     <div class="field">
       <label>間取り</label>
-      <input id="room-layout" type="text" name="room-layout"></input>
+      <input id="room-layout" type="text" name="room-layout" value="1K"></input>
     </div>
     <button id="submit-button">絞り込み</button>
   </form>
@@ -63,18 +60,19 @@
                 <label>住所</label>
                 <%= f.text_field :address, id: 'form-address' %>
               </div>
+              <div class="field">
+                <label>築年数</label>
+                <%= f.text_field :year, id: 'form-years' %>
+              </div>
+              <div class="field">
+                <label>間取り</label>
+                <%= f.text_field :floor_plan, id: 'form-floor-plan' %>
+              </div>
           </div>
         </div>
       </div>
-      <div class="actions" id="submit">
-        <%= f.submit '登録', class: 'ui teal basic button', 'data-disable-with' => '送信中...' %>
-      </div>
       <% end %>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>"
-      async defer></script>
-    <script type="text/javascript">
-      $('.create-estate-button').click(function () {
-        $('.ui.modal').modal('show');
-      });
-    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js" integrity="sha256-HcON65l89nxNl7vaRECVPe/zNDBzhCcJYBE7O+EcruU=" crossorigin="anonymous"></script>

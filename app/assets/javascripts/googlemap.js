@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('init... ');
     drawMapWithCurrentUserPosition();
     redrawPinsFromSearchForm();
+    // $('.ui.sidebar.bottom').sidebar('setting', 'transition', 'overlay');
     console.log('init done!');
 });
 
@@ -35,7 +36,7 @@ function drawMapWithCurrentUserPosition() {
 
 // 不動産のPinを立てる関数
 function putEstatePin(args) {
-    var marker = putPin({ name: args.name, lng: args.lng, lat: args.lat, map: args.map, icon: { url: "icons/icon-apart.png" } });
+    var marker = putPin({ name: args.name, lng: args.lng, lat: args.lat, map: args.map, icon: args.icon });
     // pinを消す時のためにmarkerを保存して置く。
     MarkerArray.push(marker);
     // 一回しか発火しない
@@ -44,12 +45,19 @@ function putEstatePin(args) {
             url: 'api/v1/estates/' + marker.title,
             type: 'get',
             success: function(data) {
+                //bug
+                console.log($('.ui.modal').modal);
+                uimodal = $('.ui.modal');
+                //bug
                 $('.ui.modal').modal('show');
                 $('#form-name').val(data.name);
                 $('#form-longitude').val(data.longitude);
                 $('#form-latitude').val(data.latitude);
                 $('#form-price').val(data.price);
                 $('#form-address').val(data.address);
+                $('#form-years').val(data.year);
+                $('#form-floor-plan').val(data.floor_plan);
+                console.log(data);
             }
         })
     })
@@ -67,7 +75,7 @@ function putAllEstatePins(map) {
                     lng: d.longitude,
                     lat: d.latitude,
                     map: map,
-                    icon: { url: "icons/icon-apart.png" }
+                    icon: { url: selectIcon({ peace: 3 }) }
                 });
             });
         }
@@ -86,26 +94,32 @@ function putPin(args) {
 
 function redrawPinsFromSearchForm() {
     // search-formをサブミットしたら発火
-    $('#submit-button').click(function(event) {
-        // eventの中にformが
-        event.preventDefault();
+    $('submit').submit(function(event) {
         $.ajax({
-            url: 'api/v1/estates?' + $('form#search-form').serialize(),
-            type: 'get'
-        }).done(function(data) {
-            //ピンを全て消す。
-            MarkerArray.forEach(function(marker, idx) { marker.setMap(null) });
-            console.log(data);
-            data.forEach(function(d) {
-                // ピンを再描画
-                putEstatePin({
-                    name: d.name,
-                    lng: d.longitude,
-                    lat: d.latitude,
-                    map: map,
-                    icon: { url: "icons/icon-apart.png" }
+            url: '/search',
+            type: 'get',
+            data: $form.serialize(),
+            success: function(data) {
+                //ピンを全て消す。
+                MarkerArray.forEach(function(marker, idx) { marker.setMap(null) })
+                data.forEach(function(d) {
+                    // ピンを再描画
+                    putPin();
+                    console.log(d);
                 });
-            });
-        });
+            }
+        })
     })
+}
+
+function selectIcon(args) {
+    var label = args.label
+    var peace = args.peace
+        //var peace = args.peace
+        //var price = args.price
+    if (label == "user") return "icons/icon-user.png";
+    else if (peace == 1) return "icons/icon-home-green.png";
+    else if (peace == 2) return "icons/icon-home-yellow.png";
+    else if (peace == 3) return "icons/icon-home-red.png";
+    else return "icons/icon-apart.png"
 }
