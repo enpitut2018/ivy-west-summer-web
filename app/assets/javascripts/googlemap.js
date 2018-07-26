@@ -95,6 +95,7 @@ function putPin(args) {
 function redrawPinsFromSearchForm() {
     // search-formをサブミットしたら発火
     $('submit').submit(function(event) {
+        event.defaultPrevent();
         $.ajax({
             url: '/search',
             type: 'get',
@@ -104,7 +105,13 @@ function redrawPinsFromSearchForm() {
                 MarkerArray.forEach(function(marker, idx) { marker.setMap(null) })
                 data.forEach(function(d) {
                     // ピンを再描画
-                    putPin();
+                    putEstatePin({
+                        name: d.name,
+                        lng: d.longitude,
+                        lat: d.latitude,
+                        map: map,
+                        icon: { url: selectIcon({ peace: 3 }) }
+                    });
                     console.log(d);
                 });
             }
