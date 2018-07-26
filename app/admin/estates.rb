@@ -21,7 +21,7 @@ ActiveAdmin.register Estate do
       location1:          hash[:location1],
       location2:          hash[:location2],
       location3:          hash[:location3],
-      year:               hash[:year],
+      year:               hash[:year].gsub(/[^\d]/, '').to_i,
       height:             hash[:height],
       floor:              hash[:floor],
       administration_fee: hash[:administration_fee],
