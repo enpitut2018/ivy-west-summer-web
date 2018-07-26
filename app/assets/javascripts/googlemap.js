@@ -1,31 +1,8 @@
 window.addEventListener('load', function() {
     drawMapWithCurrentUserPosition();
+
 })
 
-// // 登録ボタンを押したら、ピンを立てる。
-// $('#submit').find('input').on('click', function() {
-//     // 入力したデータを送る。
-//     $.ajax({
-//         url: '/estates/',
-//         type: 'get',
-//         success: function() {
-//             // ピンを立てる。
-//             lat = $('#form-latitude').find('input').val();
-//             lng = $('#form-longitude').find('input').val();
-//             console.log('lat: ' + lat)
-//             console.log('lng: ' + lng)
-//             putPin({ lat: lat, lng: lng, map, map });
-//             // formを自動で閉じる。
-//         }
-//     })
-// });
-
-function putPin(args) {
-    var marker = new google.maps.Marker({
-        map: args.map,
-        position: new google.maps.LatLng(args.lng, args.lat)
-    });
-};
 
 function drawMapWithCurrentUserPostion() {
     if (navigator.geolocation) {
@@ -39,12 +16,6 @@ function drawMapWithCurrentUserPostion() {
                         zoom: 14
                     });
                 putEstatePins(map);
-                google.maps.event.addListener(map, 'click', function(event) {
-                    $('.ui.modal').modal('show');
-                    // latとlngが逆だが、なぜか動く。
-                    $('#form-latitude').val(Number(event.latLng.lng()).toFixed(5));
-                    $('#form-longitude').val(Number(event.latLng.lat()).toFixed(5));
-                });
             },
             function(error) {
                 console.log('geolocation error');
@@ -92,8 +63,26 @@ function putPin(args) {
         map: args.map,
         position: new google.maps.LatLng(args.lng, args.lat),
         title: args.name,
-        icon:{url:"icons/icon-apart.png"},
+        icon: { url: "icons/icon-apart.png" },
     });
     console.log(marker)
     return marker
 };
+
+function redrawPinsFromSearchForm() {
+    // search-formをサブミットしたら発火
+    $('serch-form').submit(function(event) {
+        $.ajax({
+            url: '/search',
+            type: 'get',
+            data: $form.serialize(),
+            success: function(data) {
+                //ピンを全て消す。
+                data.forEach(d) {
+                    // ピンを再描画
+                    console.log(d);
+                }
+            }
+        })
+    })
+}
