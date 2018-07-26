@@ -60,11 +60,16 @@
                 <label>住所</label>
                 <%= f.text_field :address, id: 'form-address' %>
               </div>
+              <div class="field">
+                <label>築年数</label>
+                <%= f.text_field :year, id: 'form-years' %>
+              </div>
+              <div class="field">
+                <label>間取り</label>
+                <%= f.text_field :floor_plan, id: 'form-floor-plan' %>
+              </div>
           </div>
         </div>
-      </div>
-      <div class="actions" id="submit">
-        <%= f.submit '登録', class: 'ui teal basic button', 'data-disable-with' => '送信中...' %>
       </div>
       <% end %>
     </div>
