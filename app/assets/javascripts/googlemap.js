@@ -19,13 +19,17 @@ window.addEventListener('load', function() {
 //         }
 //     })
 // });
+//
+// function putPin(args) {
+//     var marker = new google.maps.Marker({
+//         map: args.map,
+//         position: new google.maps.LatLng(args.lng, args.lat)
+//     });
+// };
 
-function putPin(args) {
-    var marker = new google.maps.Marker({
-        map: args.map,
-        position: new google.maps.LatLng(args.lng, args.lat)
-    });
-};
+//ピンの保存用配列
+var MarkerArray = new Array();
+
 
 function drawMapWithCurrentUserPostion() {
     if (navigator.geolocation) {
@@ -38,6 +42,7 @@ function drawMapWithCurrentUserPostion() {
                         center: { lat: data.latitude, lng: data.longitude },
                         zoom: 14
                     });
+                putPin({ lng: data.latitude, lat: data.longitude, map: map, title:"user", icon: {url: "icons/icon-user.png"} })
                 putEstatePins(map);
                 google.maps.event.addListener(map, 'click', function(event) {
                     $('.ui.modal').modal('show');
@@ -55,6 +60,9 @@ function drawMapWithCurrentUserPostion() {
 
 }
 
+
+
+
 // 不動産apiからdataを取得し、Pinをさす。
 function putEstatePins(map) {
     $.ajax({
@@ -62,7 +70,7 @@ function putEstatePins(map) {
         type: 'get',
         success: function(data) {
             data.forEach(function(d) {
-                var marker = putPin({ name: d.name, lng: d.longitude, lat: d.latitude, map: map })
+                var marker = putPin({ name: d.name, lng: d.longitude, lat: d.latitude, map: map, icon:{url:"icons/icon-apart.png"}})
                     // 一回しか発火しない
                 var listener = google.maps.event.addListenerOnce(marker, "click", function(params) {
                     $('.ui.modal').modal('show');
@@ -92,8 +100,27 @@ function putPin(args) {
         map: args.map,
         position: new google.maps.LatLng(args.lng, args.lat),
         title: args.name,
-        icon:{url:"icons/icon-apart.png"},
+        icon: args.icon,
     });
+
+    MarkerArray.push(marker);
     console.log(marker)
     return marker
 };
+
+// function putUserPin(args) {
+//     var marker = new google.maps.Marker({
+//         map: args.map,
+//         position: new google.maps.LatLng(args.lng, args.lat),
+//         icon: args.icon
+//     });
+//
+//     MarkerArray.push(marker);
+//     console.log(marker)
+//     return marker
+// };
+
+//ピンをクリア
+function ClearAllPins(){
+  MarkerArray.forEach(function(marker,idx){marker.setMap(null)})
+}
