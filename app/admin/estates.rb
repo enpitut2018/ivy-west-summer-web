@@ -11,5 +11,13 @@ ActiveAdmin.register Estate do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-
+  active_admin_importable do |model, hash|
+    model.create(
+      name:      hash[:name],
+      longitude: 0.000000, # @TODO 後で入力
+      latitude:  0.000000, # @TODO 後で入力
+      price:     hash[:price],
+      address:   hash[:address]
+    )
+  end
 end
