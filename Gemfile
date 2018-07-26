@@ -17,6 +17,9 @@ gem 'semantic-ui-sass'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'dotenv-rails'
+gem 'activeadmin'
+gem 'devise'
+gem 'active_admin_importable'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
