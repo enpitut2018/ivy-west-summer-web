@@ -29,7 +29,7 @@
       <label>間取り</label>
       <input id="room-layout" type="text" name="room-layout"></input>
     </div>
-    <input type="submit" name="submit" value="絞り込み">
+    <button id="submit-button">絞り込み</button>
   </form>
 
 
@@ -71,7 +71,7 @@
       </div>
       <% end %>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=drawMapWithCurrentUserPostion"
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>"
       async defer></script>
     <script type="text/javascript">
       $('.create-estate-button').click(function () {

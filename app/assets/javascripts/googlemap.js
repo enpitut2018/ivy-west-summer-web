@@ -1,12 +1,16 @@
 // ピンの保存用配列
 var MarkerArray = new Array();
 
-// windowがloadされたら呼び出す。
-window.addEventListener('load', function() {
+// DOMがロードされた時点で実行(loadよりも少し早い。)
+document.addEventListener("DOMContentLoaded", function() {
+    console.log('init... ');
     drawMapWithCurrentUserPosition();
-})
+    redrawPinsFromSearchForm();
+    console.log('init done!');
+});
 
-function drawMapWithCurrentUserPostion() {
+// 現在地を取得し、mapを表示し、DBから全てのピンを追加する。
+function drawMapWithCurrentUserPosition() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function(position) {
@@ -29,6 +33,7 @@ function drawMapWithCurrentUserPostion() {
     }
 }
 
+// 不動産のPinを立てる関数
 function putEstatePin(args) {
     var marker = putPin({ name: args.name, lng: args.lng, lat: args.lat, map: args.map, icon: { url: "icons/icon-apart.png" } });
     // pinを消す時のためにmarkerを保存して置く。
@@ -45,7 +50,6 @@ function putEstatePin(args) {
                 $('#form-latitude').val(data.latitude);
                 $('#form-price').val(data.price);
                 $('#form-address').val(data.address);
-                console.log(data);
             }
         })
     })
@@ -70,8 +74,6 @@ function putAllEstatePins(map) {
     });
 }
 
-
-
 function putPin(args) {
     var marker = new google.maps.Marker({
         map: args.map,
@@ -79,28 +81,31 @@ function putPin(args) {
         title: args.name,
         icon: args.icon,
     });
-
-    console.log(marker);
     return marker
 };
 
-
 function redrawPinsFromSearchForm() {
     // search-formをサブミットしたら発火
-    $('serch-form').submit(function(event) {
+    $('#submit-button').click(function(event) {
+        // eventの中にformが
+        event.preventDefault();
         $.ajax({
-            url: '/search',
-            type: 'get',
-            data: $form.serialize(),
-            success: function(data) {
-                //ピンを全て消す。
-                MarkerArray.forEach(function(marker, idx) { marker.setMap(null) })
-                data.forEach(function(d) {
-                    // ピンを再描画
-                    putPin()
-                    console.log(d);
+            url: 'api/v1/estates?' + $('form#search-form').serialize(),
+            type: 'get'
+        }).done(function(data) {
+            //ピンを全て消す。
+            MarkerArray.forEach(function(marker, idx) { marker.setMap(null) });
+            console.log(data);
+            data.forEach(function(d) {
+                // ピンを再描画
+                putEstatePin({
+                    name: d.name,
+                    lng: d.longitude,
+                    lat: d.latitude,
+                    map: map,
+                    icon: { url: "icons/icon-apart.png" }
                 });
-            }
-        })
+            });
+        });
     })
 }
