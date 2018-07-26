@@ -87,7 +87,7 @@ function putPin(args) {
 
 function redrawPinsFromSearchForm() {
     // search-formをサブミットしたら発火
-    $('serch-form').submit(function(event) {
+    $('submit').submit(function(event) {
         $.ajax({
             url: '/search',
             type: 'get',
@@ -97,10 +97,22 @@ function redrawPinsFromSearchForm() {
                 MarkerArray.forEach(function(marker, idx) { marker.setMap(null) })
                 data.forEach(function(d) {
                     // ピンを再描画
-                    putPin()
+                    putPin();
                     console.log(d);
                 });
             }
         })
     })
+}
+
+function selectIcon(args){
+  var label = args.label
+  var peace = args.peace
+  //var peace = args.peace
+  //var price = args.price
+  if(label == "user") return "icons/icon-user.png";
+  else if(peace == 1) return "icons/icon-home-green.png";
+  else if(peace == 2) return "icons/icon-home-yellow.png";
+  else if(peace == 3) return "icons/icon-home-red.png";
+  else return "icons/icon-apart.png"
 }
