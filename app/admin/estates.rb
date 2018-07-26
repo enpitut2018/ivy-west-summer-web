@@ -14,20 +14,22 @@ ActiveAdmin.register Estate do
   active_admin_importable do |model, hash|
     model.create(
       name:               hash[:name],
-      longitude:          0.000000, # @TODO 後で入力
-      latitude:           0.000000, # @TODO 後で入力
-      price:              hash[:price],
+      latitude:           hash[:latitude].to_f,
+      longitude:          hash[:longitude].to_f,
+      price:              hash[:price].force_encoding('UTF-8').gsub('万円', '').to_f,
       address:            hash[:address],
+      years:              hash[:years].force_encoding('UTF-8').gsub('築', '').gsub('年', '').to_i,
+      floor_plan:         hash[:floor_plan],
       location1:          hash[:location1],
       location2:          hash[:location2],
       location3:          hash[:location3],
-      year:               hash[:year].gsub(/[^\d]/, '').to_i,
-      height:             hash[:height],
-      floor:              hash[:floor],
-      administration_fee: hash[:administration_fee],
-      note:               hash[:note],
-      floor_plan:         hash[:floor_plan],
-      area:               hash[:area]
+      height:             hash[:height].force_encoding('UTF-8').gsub('階建', '').to_i,
+      floor:              hash[:floor].force_encoding('UTF-8').gsub('階', '').to_i,
+      administration_fee: hash[:administration_fee].force_encoding('UTF-8').gsub('円', '').to_i,
+      deposit:            hash[:dep_gra].force_encoding('UTF-8').gsub('万円', '').split('/')[0].to_f,
+      gratuity_fee:       hash[:dep_gra].force_encoding('UTF-8').gsub('万円', '').split('/')[1].to_f,
+      occupied_area:      hash[:occupied_area].force_encoding('UTF-8').gsub('m', '').to_f,
+      note:               hash[:note]
     )
   end
 end

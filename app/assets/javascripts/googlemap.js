@@ -22,7 +22,7 @@ function drawMapWithCurrentUserPosition() {
                         zoom: 14
                     });
                 // Userのピンを追加
-                putPin({ lng: data.latitude, lat: data.longitude, map: map, title: "user", icon: { url: "icons/icon-user.png" } });
+                putPin({ lat: data.latitude, lng: data.longitude, map: map, title: "user", icon: { url: "icons/icon-user.png" } });
                 // 不動産DBから全てのピンを追加。
                 putAllEstatePins(map);
             },
@@ -49,13 +49,22 @@ function putEstatePin(args) {
                 uimodal = $('.ui.modal');
                 //bug
                 $('.ui.modal').modal('show');
-                $('#form-name').val(data.name);
-                $('#form-longitude').val(data.longitude);
-                $('#form-latitude').val(data.latitude);
-                $('#form-price').val(data.price);
-                $('#form-address').val(data.address);
-                $('#form-years').val(data.year);
-                $('#form-floor-plan').val(data.floor_plan);
+                $('#estate-name').text(data.name);
+                $('#estate-latitude').text(data.latitude);
+                $('#estate-longitude').text(data.longitude);
+                $('#estate-longitude').text(data.longitude);
+                $('#estate-price').text(data.price + '万円');
+                $('#estate-address').text(data.address);
+                $('#estate-years').text('築' + data.years + '年');
+                $('#estate-floor_plan').text(data.floor_plan);
+                $('#estate-location1').text(data.location1);
+                $('#estate-height').text(data.height + '階建');
+                $('#estate-floor').text(data.floor + '階');
+                $('#estate-administration_fee').text(data.administration_fee + '円');
+                $('#estate-deposit').text(data.deposit + '万円');
+                $('#estate-gratuity_fee').text(data.gratuity_fee + '万円');
+                $('#estate-occupied_area').html('<div>' + data.occupied_area + 'm<sup>2</sup></div>');
+                console.log(data)
             }
         })
     })
@@ -83,7 +92,7 @@ function putAllEstatePins(map) {
 function putPin(args) {
     var marker = new google.maps.Marker({
         map: args.map,
-        position: new google.maps.LatLng(args.lng, args.lat),
+        position: new google.maps.LatLng(args.lat, args.lng),
         title: args.name,
         icon: args.icon,
     });
@@ -105,8 +114,8 @@ function redrawPinsFromSearchForm() {
             data.forEach(function(d) {
                 putEstatePin({
                     name: d.name,
-                    lng: d.longitude,
                     lat: d.latitude,
+                    lng: d.longitude,
                     map: map,
                     icon: { url: selectIcon({ peace: 3 }) }
                 })

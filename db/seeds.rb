@@ -13,43 +13,43 @@ AdminUser.create!(email: 'admin@example.com', password: 'password', password_con
 Estate.create([
   {
     name: 'グリーンハイツ',
-    longitude: 36.112727,
-    latitude: 140.097682,
+    latitude: 36.100000,
+    longitude: 140.097682,
     price: 3.0,
     address: '茨城県つくば市松代2丁目6−9',
-    year: 10,
+    years: 10,
     floor_plan: '1K'
   }, {
     name: 'KAさくら',
-    longitude: 36.115105,
-    latitude: 140.107639,
-    price: 3.3,
+    latitude: 36.115105,
+    longitude: 140.107639,
+    price: 3.5,
     address: '茨城県つくば市桜2丁目23−1',
-    year: 15,
+    years: 15,
     floor_plan: '1K'
   }, {
     name: 'ハイライズさくら',
-    longitude: 36.112727,
-    latitude: 140.097682,
-    price: 4.5,
+    latitude: 36.112727,
+    longitude: 140.097682,
+    price: 4.0,
     address: '茨城県つくば市桜1丁目5−9',
-    year: 20,
+    years: 20,
     floor_plan: '1K'
   }, {
     name: 'サンプル不動産1',
-    longitude: 36.1119215,
-    latitude: 140.096918,
-    price: 5.0,
+    latitude: 36.1119215,
+    longitude: 140.096918,
+    price: 4.5,
     address: 'サンプル住所1',
-    year: 22,
+    years: 25,
     floor_plan: '1LDK'
   }, {
     name: 'サンプル不動産2',
-    longitude: 36.112749,
-    latitude: 140.099848,
-    price: 10.0,
+    latitude: 36.112749,
+    longitude: 140.099848,
+    price: 5.0,
     address: 'サンプル住所2',
-    year: 25,
+    years: 30,
     floor_plan: '2LDK'
   }
 ])

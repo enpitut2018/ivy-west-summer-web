@@ -17,7 +17,7 @@ class Api::V1::EstatesController < ApplicationController
     end
 
     if params[:years].present?
-      one = one.where(year: 0..params[:years].to_i)
+      one = one.where(years: 0..params[:years].to_i)
     end
 
     if params[:room_layout].present?
