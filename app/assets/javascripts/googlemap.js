@@ -91,26 +91,32 @@ function putPin(args) {
 
 function redrawPinsFromSearchForm() {
     // search-formをサブミットしたら発火
-    $('#submit-button').click(function(event) {
-        // eventの中にformが
-        event.preventDefault();
+    $('submit').submit(function(event) {
         $.ajax({
-            url: 'api/v1/estates?' + $('form#search-form').serialize(),
-            type: 'get'
-        }).done(function(data) {
-            //ピンを全て消す。
-            MarkerArray.forEach(function(marker, idx) { marker.setMap(null) });
-            console.log(data);
-            data.forEach(function(d) {
-                // ピンを再描画
-                putEstatePin({
-                    name: d.name,
-                    lng: d.longitude,
-                    lat: d.latitude,
-                    map: map,
-                    icon: { url: "icons/icon-apart.png" }
+            url: '/search',
+            type: 'get',
+            data: $form.serialize(),
+            success: function(data) {
+                //ピンを全て消す。
+                MarkerArray.forEach(function(marker, idx) { marker.setMap(null) })
+                data.forEach(function(d) {
+                    // ピンを再描画
+                    putPin();
+                    console.log(d);
                 });
-            });
-        });
-    });
+            }
+        })
+    })
+}
+
+function selectIcon(args){
+  var label = args.label
+  var peace = args.peace
+  //var peace = args.peace
+  //var price = args.price
+  if(label == "user") return "icons/icon-user.png";
+  else if(peace == 1) return "icons/icon-home-green.png";
+  else if(peace == 2) return "icons/icon-home-yellow.png";
+  else if(peace == 3) return "icons/icon-home-red.png";
+  else return "icons/icon-apart.png"
 }
