@@ -36,7 +36,7 @@ function drawMapWithCurrentUserPosition() {
 
 // 不動産のPinを立てる関数
 function putEstatePin(args) {
-    var marker = putPin({ name: args.name, lng: args.lng, lat: args.lat, map: args.map, icon: { url: "icons/icon-apart.png" } });
+    var marker = putPin({ name: args.name, lng: args.lng, lat: args.lat, map: args.map, icon: args.icon });
     // pinを消す時のためにmarkerを保存して置く。
     MarkerArray.push(marker);
     // 一回しか発火しない
@@ -72,7 +72,7 @@ function putAllEstatePins(map) {
                     lng: d.longitude,
                     lat: d.latitude,
                     map: map,
-                    icon: { url: "icons/icon-apart.png" }
+                    icon: { url: selectIcon({peace:1})}
                 });
             });
         }
