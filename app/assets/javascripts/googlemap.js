@@ -22,7 +22,7 @@ function drawMapWithCurrentUserPosition() {
                         zoom: 14
                     });
                 // Userのピンを追加
-                putPin({ lng: data.latitude, lat: data.longitude, map: map, title: "user", icon: { url: "icons/icon-user.png" } });
+                putPin({ lat: data.latitude, lng: data.longitude, map: map, title: "user", icon: { url: "icons/icon-user.png" } });
                 // 不動産DBから全てのピンを追加。
                 putAllEstatePins(map);
             },
@@ -83,7 +83,7 @@ function putAllEstatePins(map) {
 function putPin(args) {
     var marker = new google.maps.Marker({
         map: args.map,
-        position: new google.maps.LatLng(args.lng, args.lat),
+        position: new google.maps.LatLng(args.lat, args.lng),
         title: args.name,
         icon: args.icon,
     });
@@ -105,8 +105,8 @@ function redrawPinsFromSearchForm() {
             data.forEach(function(d) {
                 putEstatePin({
                     name: d.name,
-                    lng: d.longitude,
                     lat: d.latitude,
+                    lng: d.longitude,
                     map: map,
                     icon: { url: selectIcon({ peace: 3 }) }
                 })

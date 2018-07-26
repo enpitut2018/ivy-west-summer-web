@@ -2,8 +2,8 @@ class CreateBaseTables < ActiveRecord::Migration[5.1]
   def change
     create_table :estates do |t|
       t.string  :name, null: false
-      t.decimal :longitude, precision: 9, scale: 6, null: false
       t.decimal :latitude,  precision: 9, scale: 6, null: false
+      t.decimal :longitude, precision: 9, scale: 6, null: false
       t.decimal :price, precision: 4, scale: 1
       t.string  :address
       t.string  :location1

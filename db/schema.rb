@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 20180726012652) do
 
   create_table "estates", force: :cascade do |t|
     t.string "name", null: false
-    t.decimal "longitude", precision: 9, scale: 6, null: false
     t.decimal "latitude", precision: 9, scale: 6, null: false
+    t.decimal "longitude", precision: 9, scale: 6, null: false
     t.decimal "price", precision: 4, scale: 1
     t.string "address"
     t.string "location1"
