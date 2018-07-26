@@ -94,22 +94,27 @@ function putPin(args) {
 
 function redrawPinsFromSearchForm() {
     // search-formをサブミットしたら発火
-    $('submit').submit(function(event) {
+    $('#submit-button').click(function(event) {
+        // eventの中にformが
+        event.preventDefault();
         $.ajax({
-            url: '/search',
-            type: 'get',
-            data: $form.serialize(),
-            success: function(data) {
-                //ピンを全て消す。
-                MarkerArray.forEach(function(marker, idx) { marker.setMap(null) })
-                data.forEach(function(d) {
-                    // ピンを再描画
-                    putPin();
-                    console.log(d);
-                });
-            }
-        })
-    })
+            url: 'api/v1/estates?' + $('form#search-form').serialize(),
+            type: 'get'
+        }).done(function(data) {
+            //ピンを全て消す。
+            MarkerArray.forEach(function(marker, idx) { marker.setMap(null) });
+            console.log(data);
+            data.forEach(function(d) {
+                putEstatePin({
+                    name: d.name,
+                    lng: d.longitude,
+                    lat: d.latitude,
+                    map: map,
+                    icon: { url: selectIcon({ peace: 3 }) }
+                })
+            });
+        });
+    });
 }
 
 function selectIcon(args) {
