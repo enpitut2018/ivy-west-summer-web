@@ -40,13 +40,12 @@ function putEstatePin(args) {
     // pinを消す時のためにmarkerを保存して置く。
     MarkerArray.push(marker);
     // 一回しか発火しない
-    var listener = google.maps.event.addListenerOnce(marker, "click", function(params) {
+    var listener = google.maps.event.addListener(marker, "click", function(params) {
         $.ajax({
             url: 'api/v1/estates/' + marker.title,
             type: 'get',
             success: function(data) {
                 //bug
-                console.log($('.ui.modal').modal);
                 uimodal = $('.ui.modal');
                 //bug
                 $('.ui.modal').modal('show');
@@ -57,7 +56,6 @@ function putEstatePin(args) {
                 $('#form-address').val(data.address);
                 $('#form-years').val(data.year);
                 $('#form-floor-plan').val(data.floor_plan);
-                console.log(data);
             }
         })
     })
