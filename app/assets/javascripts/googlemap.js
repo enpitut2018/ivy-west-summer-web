@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('init... ');
     drawMapWithCurrentUserPosition();
     redrawPinsFromSearchForm();
+    // $('.ui.sidebar.bottom').sidebar('setting', 'transition', 'overlay');
     console.log('init done!');
 });
 
@@ -44,6 +45,10 @@ function putEstatePin(args) {
             url: 'api/v1/estates/' + marker.title,
             type: 'get',
             success: function(data) {
+                //bug
+                console.log($('.ui.modal').modal);
+                uimodal = $('.ui.modal');
+                //bug
                 $('.ui.modal').modal('show');
                 $('#form-name').val(data.name);
                 $('#form-longitude').val(data.longitude);
@@ -107,5 +112,5 @@ function redrawPinsFromSearchForm() {
                 });
             });
         });
-    })
+    });
 }

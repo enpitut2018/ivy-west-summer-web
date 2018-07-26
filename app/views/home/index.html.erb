@@ -1,7 +1,4 @@
 <div id="map"></div>
-<button class="ui teal basic button create-estate-button">
-  不動産を登録する
-</button>
 
 <%# Search Form %>
   <form id="search-form">
@@ -71,10 +68,6 @@
       </div>
       <% end %>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>"
-      async defer></script>
-    <script type="text/javascript">
-      $('.create-estate-button').click(function () {
-        $('.ui.modal').modal('show');
-      });
-    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js" integrity="sha256-HcON65l89nxNl7vaRECVPe/zNDBzhCcJYBE7O+EcruU=" crossorigin="anonymous"></script>
