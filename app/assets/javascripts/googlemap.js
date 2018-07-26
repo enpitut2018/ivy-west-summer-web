@@ -54,7 +54,7 @@ function putEstatePin(args) {
                 $('#form-latitude').val(data.latitude);
                 $('#form-price').val(data.price);
                 $('#form-address').val(data.address);
-                $('#form-years').val(data.year);
+                $('#form-years').val(data.years);
                 $('#form-floor-plan').val(data.floor_plan);
             }
         })
