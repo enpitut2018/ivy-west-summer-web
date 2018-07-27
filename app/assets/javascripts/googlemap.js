@@ -47,7 +47,10 @@ function putEstatePin(args) {
             url: 'api/v1/estates/' + marker.title,
             type: 'get',
             success: function(data) {
-                $('#estate-modal').modal('show');
+                //bug
+                uimodal = $('.ui.modal');
+                //bug
+                $('.ui.modal').modal('show');
                 $('#estate-name').text(data.name);
                 $('#estate-latitude').text(data.latitude);
                 $('#estate-longitude').text(data.longitude);

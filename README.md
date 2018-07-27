@@ -1,24 +1,20 @@
-# README
+## IVY WEST 202 「eiZUUMO」
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## エレベーターピッチ
 
-Things you may want to cover:
+引越しの際の不動産情報探しで、部屋の情報だけでなく実際に行かなければわからないような周囲の情報も得られるようにすることで、住み始めてからのミスマッチを防ぐ。
 
-* Ruby version
 
-* System dependencies
+## URL
 
-* Configuration
+* https://ivy-west-summer-web.herokuapp.com
 
-* Database creation
 
-* Database initialization
+## メンバー
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* https://github.com/10llip0p
+* https://github.com/agatsssssma
+* https://github.com/guri3
+* https://github.com/hiroto0227
+* https://github.com/sekimoriko
+* https://github.com/ubi-takumin
