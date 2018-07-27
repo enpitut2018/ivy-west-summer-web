@@ -16,6 +16,13 @@ ActiveAdmin.register Estate do
 # end
   active_admin_importable do |model, hash|
     noise = NoiseLevel.get_noise_level(hash[:latitude].to_f, hash[:longitude].to_f)
+    izakaya = hash[:izakaya].to_f / 3
+    if izakaya == 0
+      izakaya = 1
+    elsif izakaya > 10
+      izakaya = 10
+    end
+    izakaya = izakaya.round
     model.create(
       name:               hash[:name],
       latitude:           hash[:latitude].to_f,
@@ -34,6 +41,7 @@ ActiveAdmin.register Estate do
       gratuity_fee:       hash[:dep_gra].force_encoding('UTF-8').gsub('万円', '').split('/')[1].to_f,
       occupied_area:      hash[:occupied_area].force_encoding('UTF-8').gsub('m', '').to_f,
       noise:              noise,
+      izakaya:            izakaya,
       note:               hash[:note]
     )
   end

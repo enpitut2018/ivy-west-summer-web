@@ -16,6 +16,7 @@ json.deposit            estate.deposit
 json.gratuity_fee       estate.gratuity_fee
 json.occupied_area      estate.occupied_area
 json.noise              estate.noise
+json.izakaya            estate.izakaya
 json.note               estate.note
 json.created_at         estate.created_at
 json.updated_at         estate.updated_at
