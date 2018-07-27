@@ -20,11 +20,41 @@ function drawMapWithCurrentUserPosition() {
                     document.getElementById('map'), {
                         center: { lat: data.latitude, lng: data.longitude },
                         zoom: 14
-                    });
+                });
+
+
+
+                var sview = map.getStreetView();
+                var is_sview = false;
+
+                google.maps.event.addListener(sview,'visible_changed',function(){
+                    if(!(is_sview)){
+
+                      MarkerArray.forEach(function(marker, idx) { marker.setMap(null) });
+                      putAllEstatePins({map: map, scaledSize: new google.maps.Size(500, 500)});
+                      console.log('zoom')
+                      is_sview = true;
+                    }else{
+                      MarkerArray.forEach(function(marker, idx) { marker.setMap(null) });
+                      putAllEstatePins({map: map, scaledSize: new google.maps.Size(40, 40)});
+                      console.log('backback')
+                      is_sview = false;
+                    }      //console.log(marker.scaledSize)
+                });
+
+                // google.maps.event.addListener(sview,'visible_changed',function(){
+                //     MarkerArray.forEach(function(marker, idx) { marker.setMap(null) });
+                //     putAllEstatePins({map: map, scaledSize: new google.maps.Size(40, 40)});
+                //     console.log('backback')
+                //     //console.log(marker.scaledSize)
+                // });
+
+            //});
+
                 // Userのピンを追加
                 putPin({ lat: data.latitude, lng: data.longitude, map: map, title: "user", icon: { url: "icons/icon-user.png" } });
                 // 不動産DBから全てのピンを追加。
-                putAllEstatePins(map);
+                putAllEstatePins({map: map, scaledSize: new google.maps.Size(40, 40)});
             },
             function(error) {
                 console.log('geolocation error');
@@ -36,7 +66,7 @@ function drawMapWithCurrentUserPosition() {
 
 // 不動産のPinを立てる関数
 function putEstatePin(args) {
-    var marker = putPin({ name: args.name, lng: args.lng, lat: args.lat, map: args.map, icon: args.icon });
+    var marker = putPin({ name: args.name, lng: args.lng, lat: args.lat, map: args.map, icon: args.icon, scaledSize: args.scaledSize });
     // pinを消す時のためにmarkerを保存して置く。
     MarkerArray.push(marker);
     // 一回しか発火しない
@@ -71,7 +101,7 @@ function putEstatePin(args) {
 }
 
 // 不動産apiからdataを取得し、Pinをさす。
-function putAllEstatePins(map) {
+function putAllEstatePins(args) {
     $.ajax({
         url: '/api/v1/estates',
         type: 'get',
@@ -81,8 +111,9 @@ function putAllEstatePins(map) {
                     name: d.name,
                     lng: d.longitude,
                     lat: d.latitude,
-                    map: map,
-                    icon: { url: selectIcon({ peace: 3 }) }
+                    map: args.map,
+                    icon: { url: selectIcon({ peace: 3 }),
+                    scaledSize: args.scaledSize }
                 });
             });
         }
@@ -95,6 +126,7 @@ function putPin(args) {
         position: new google.maps.LatLng(args.lat, args.lng),
         title: args.name,
         icon: args.icon,
+        scaledSize: args.scaledSize
     });
     return marker
 };
