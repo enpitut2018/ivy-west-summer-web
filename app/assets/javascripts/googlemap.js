@@ -66,6 +66,7 @@ function putEstatePin(args) {
                 $('#estate-occupied_area').html('<div>' + data.occupied_area + 'm<sup>2</sup></div>');
                 $('#estate-noise').text(data.noise);
                 $('#estate-izakaya').text(data.izakaya);
+                $('#estate-crime').text(data.crime);
                 console.log(data)
             }
         })
