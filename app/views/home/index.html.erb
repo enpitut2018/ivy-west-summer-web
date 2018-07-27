@@ -1,78 +1,138 @@
 <div id="map"></div>
 
 <%# Search Form %>
-  <form id="search-form">
-    <div class="field">
-      <label>住所名</label>
-      <input id="adress" type="text" name="adress" value="つくば"></input>
-    </div>
-    <div class="field">
-      <label>上限家賃</label>
-      <input id="upper-price" type="text" name="upper-price" value=10>万円未満</input>
-    </div>
-    <div class="field">
-      <label>下限家賃</label>
-      <input id="lower-price" type="text" name="lower-price" value=1>万円以上</input>
-    </div>
-    <!-- div class="field" -->
-      <!-- label>距離(半径)</label -->
-      <!-- input id="distance" type="text" name="distance"></input -->
-    <!-- /div -->
-    <div class="field">
-      <label>築年数</label>
-      <input id="years" type="text" name="years" value="20">年未満</input>
-    </div>
-    <div class="field">
-      <label>間取り</label>
-      <input id="room-layout" type="text" name="room-layout" value="1K"></input>
-    </div>
-    <button id="submit-button">絞り込み</button>
-  </form>
+<form id="search-form">
+  <div class="field">
+    <label>住所名</label>
+    <input id="address" type="text" name="address"></input>
+  </div>
+  <div class="field">
+    <label>上限家賃</label>
+    <input id="upper-price" type="text" name="upper_price">万円以下</input>
+  </div>
+  <div class="field">
+    <label>下限家賃</label>
+    <input id="lower-price" type="text" name="lower_price">万円以上</input>
+  </div>
+  <!-- div class="field" -->
+    <!-- label>距離(半径)</label -->
+    <!-- input id="distance" type="text" name="distance"></input -->
+  <!-- /div -->
+  <div class="field">
+    <label>築年数</label>
+    <input id="years" type="text" name="years">年未満</input>
+  </div>
+  <div class="field">
+    <label>間取り</label>
+    <input id="room-layout" type="text" name="room_layout"></input>
+  </div>
+  <button id="submit-button">絞り込み</button>
+</form>
 
 
-  <%# 不動産情報モーダル %>
-    <div class="ui modal">
-      <i class="close icon"></i>
-      <div class="header">
-        不動産登録
-      </div>
-      <div class="content">
-        <div class="ui form">
-          <div class="inline field">
-            <%= form_with model: Estate.new do |f| %>
-              <div class="field">
-                <label>建物名</label>
-                <%= f.text_field :name, id: 'form-name' %>
-              </div>
-              <div class="field">
-                <label>緯度</label>
-                <%= f.number_field :longitude, step: '0.000001', id: 'form-longitude' %>
-              </div>
-              <div class="field">
-                <label>経度</label>
-                <%= f.number_field :latitude, step: '0.000001', id: 'form-latitude' %>
-              </div>
-              <div class="field">
-                <label>価格</label>
-                <%= f.number_field :price, id: 'form-price' %>
-              </div>
-              <div class="field">
-                <label>住所</label>
-                <%= f.text_field :address, id: 'form-address' %>
-              </div>
-              <div class="field">
-                <label>築年数</label>
-                <%= f.text_field :year, id: 'form-years' %>
-              </div>
-              <div class="field">
-                <label>間取り</label>
-                <%= f.text_field :floor_plan, id: 'form-floor-plan' %>
-              </div>
-          </div>
-        </div>
-      </div>
-      <% end %>
-    </div>
+<%# 不動産情報モーダル %>
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header" id="estate-name">
+  </div>
+  <div class="content">
+    <table class="ui celled table unstackable">
+      <tbody>
+        <tr>
+          <td>
+            <b>緯度</b>
+          </td>
+          <td id="estate-latitude">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>経度</b>
+          </td>
+          <td id="estate-longitude">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>家賃</b>
+          </td>
+          <td id="estate-price">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>住所</b>
+          </td>
+          <td id="estate-address">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>築年数</b>
+          </td>
+          <td id="estate-years">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>間取り</b>
+          </td>
+          <td id="estate-floor_plan">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>立地</b>
+          </td>
+          <td id="estate-location1">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>建物高さ</b>
+          </td>
+          <td id="estate-height">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>階</b>
+          </td>
+          <td id="estate-floor">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>管理費</b>
+          </td>
+          <td id="estate-administration_fee">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>敷金</b>
+          </td>
+          <td id="estate-deposit">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>礼金</b>
+          </td>
+          <td id="estate-gratuity_fee">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>占有面積</b>
+          </td>
+          <td id="estate-occupied_area">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>" async defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js" integrity="sha256-HcON65l89nxNl7vaRECVPe/zNDBzhCcJYBE7O+EcruU=" crossorigin="anonymous"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js" integrity="sha256-HcON65l89nxNl7vaRECVPe/zNDBzhCcJYBE7O+EcruU=" crossorigin="anonymous"></script>
