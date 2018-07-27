@@ -1,3 +1,28 @@
 div#map {
-  height: 90%
+    height: 100%
+}
+
+html.ios,
+.pushable,
+.pusher {
+    height: 100%!important;
+    width: 100%!important;
+}
+
+#sidebar-button {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    z-index: 10;
+}
+
+.search-items {
+    margin-top: 20px;
+}
+
+.search-items .field,
+.search-items button {
+    max-width: 400px;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }

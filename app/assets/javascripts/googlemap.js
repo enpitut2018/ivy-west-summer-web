@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('init... ');
     drawMapWithCurrentUserPosition();
     redrawPinsFromSearchForm();
-    // $('.ui.sidebar.bottom').sidebar('setting', 'transition', 'overlay');
+    $('div#sidebar-button').find('button').click(function(e) {
+        $('.ui.sidebar.top').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
+    });
     console.log('init done!');
 });
 
