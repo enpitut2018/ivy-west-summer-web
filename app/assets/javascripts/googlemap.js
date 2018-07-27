@@ -67,6 +67,7 @@ function putEstatePin(args) {
                 $('#estate-noise').text(data.noise);
                 $('#estate-izakaya').text(data.izakaya);
                 $('#estate-crime').text(data.crime);
+                $('#estate-safe_level').text(data.safe_level);
                 console.log(data)
             }
         })
@@ -85,7 +86,7 @@ function putAllEstatePins(map) {
                     lng: d.longitude,
                     lat: d.latitude,
                     map: map,
-                    icon: { url: selectIcon({ peace: 3 }) }
+                    icon: { url: selectIcon({ peace: d.safe_level }) }
                 });
             });
         }
@@ -120,7 +121,7 @@ function redrawPinsFromSearchForm() {
                     lat: d.latitude,
                     lng: d.longitude,
                     map: map,
-                    icon: { url: selectIcon({ peace: 3 }) }
+                    icon: { url: selectIcon({ peace: d.safe_level }) }
                 })
             });
         });
