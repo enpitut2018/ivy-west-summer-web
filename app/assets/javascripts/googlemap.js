@@ -138,8 +138,8 @@ function selectIcon(args) {
         //var peace = args.peace
         //var price = args.price
     if (label == "user") return "icons/icon-user.png";
-    else if (peace == 1) return "icons/icon-home-green.png";
-    else if (peace == 2) return "icons/icon-home-yellow.png";
+    else if (peace == 1) return "icons/icon-home-blue.png";
+    else if (peace == 2) return "icons/icon-home-orange.png";
     else if (peace == 3) return "icons/icon-home-red.png";
     else return "icons/icon-apart.png"
 }
