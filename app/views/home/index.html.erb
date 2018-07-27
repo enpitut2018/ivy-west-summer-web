@@ -1,37 +1,12 @@
 <div id="map"></div>
+<div id="sidebar-button">
+  <button class="ui button red fluid">情報絞り込み</button>
+</div>
 
-<%# Search Form %>
-<form id="search-form">
-  <div class="field">
-    <label>住所名</label>
-    <input id="address" type="text" name="address"></input>
-  </div>
-  <div class="field">
-    <label>上限家賃</label>
-    <input id="upper-price" type="text" name="upper_price">万円以下</input>
-  </div>
-  <div class="field">
-    <label>下限家賃</label>
-    <input id="lower-price" type="text" name="lower_price">万円以上</input>
-  </div>
-  <!-- div class="field" -->
-    <!-- label>距離(半径)</label -->
-    <!-- input id="distance" type="text" name="distance"></input -->
-  <!-- /div -->
-  <div class="field">
-    <label>築年数</label>
-    <input id="years" type="text" name="years">年未満</input>
-  </div>
-  <div class="field">
-    <label>間取り</label>
-    <input id="room-layout" type="text" name="room_layout"></input>
-  </div>
-  <button id="submit-button">絞り込み</button>
-</form>
 
 
 <%# 不動産情報モーダル %>
-<div class="ui modal">
+<div id="estate-modal" class="ui modal">
   <i class="close icon"></i>
   <div class="header" id="estate-name">
   </div>
@@ -127,6 +102,34 @@
             <b>占有面積</b>
           </td>
           <td id="estate-occupied_area">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>騒音レベル</b>
+          </td>
+          <td id="estate-noise">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>周辺居酒屋レベル</b>
+          </td>
+          <td id="estate-izakaya">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>犯罪発生レベル</b>
+          </td>
+          <td id="estate-crime">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>危険レベル</b>
+          </td>
+          <td id="estate-safe_level">
           </td>
         </tr>
       </tbody>

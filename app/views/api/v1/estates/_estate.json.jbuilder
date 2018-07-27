@@ -1,3 +1,27 @@
+safe_sum = 0
+data_num = 0
+if estate.noise.present?
+  safe_sum += estate.noise
+  data_num += 1
+end
+if estate.izakaya.present?
+  safe_sum += estate.izakaya
+  data_num += 1
+end
+if estate.crime.present?
+  safe_sum += estate.crime
+  data_num += 1
+end
+safe_level_ave = safe_sum.to_f / data_num
+safe_level = nil
+if safe_level_ave <= 3
+  safe_level = 1
+elsif 3 < safe_level_ave && safe_level_ave < 7
+  safe_level = 2
+elsif 7 <= safe_level_ave
+  safe_level = 3
+end
+
 json.id                 estate.id
 json.name               estate.name
 json.latitude           estate.latitude
@@ -15,6 +39,10 @@ json.administration_fee estate.administration_fee
 json.deposit            estate.deposit
 json.gratuity_fee       estate.gratuity_fee
 json.occupied_area      estate.occupied_area
+json.noise              estate.noise
+json.izakaya            estate.izakaya
+json.crime              estate.crime
+json.safe_level         safe_level
 json.note               estate.note
 json.created_at         estate.created_at
 json.updated_at         estate.updated_at

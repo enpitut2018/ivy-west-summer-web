@@ -64,6 +64,9 @@ ActiveRecord::Schema.define(version: 20180726012652) do
     t.decimal "gratuity_fee", precision: 4, scale: 1
     t.decimal "occupied_area", precision: 6, scale: 2
     t.text "note"
+    t.integer "noise"
+    t.integer "izakaya"
+    t.integer "crime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

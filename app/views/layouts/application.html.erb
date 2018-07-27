@@ -1,17 +1,87 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Myapp</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <!-- semantic.css 読み込み --> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css" integrity="sha256-iK7AZM7Xa42iuURdMdo1sp38ld/JJ3fDtS0523GKqdk=" crossorigin="anonymous" />
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
 
-  <body>
+<head>
+  <title>Myapp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <!-- semantic.css 読み込み -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css" integrity="sha256-iK7AZM7Xa42iuURdMdo1sp38ld/JJ3fDtS0523GKqdk="
+        crossorigin="anonymous" />
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+
+  <!-- 不動産絞り込みフォーム  -->
+  <div class="ui sidebar top">
+    <div class="ui container">
+      <div class="ui form">
+        <form id="search-form" class="search-items">
+
+          <div class="field">
+            <div class="ui labeled input">
+              <div class="ui basic label">
+                住所名
+              </div>
+              <input id="address" type="text" name="address" placeholder="">
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="ui field labeled input">
+              <div class="ui basic label">
+                築年数
+              </div>
+              <input id="years" type="text" name="years" placeholder="">
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="ui field labeled input">
+              <div class="ui basic label">
+                間取り
+              </div>
+              <input id="room-layout" type="text" name="room_layout" placeholder=""></input>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="ui field labeled input">
+              <div class="ui basic label">
+                家賃
+              </div>
+              <input id="upper-price" type="text" name="upper_price">
+              <div class="ui basic label">
+                万円以下
+              </div>
+            </div>
+
+            <div class="ui field labeled input">
+              <div class="ui basic label">
+                家賃
+              </div>
+              <input id="lower-price" type="text" name="lower_price">
+              <div class="ui basic label">
+                万円以上
+              </div>
+            </div>
+          </div>
+          <div class="ui field" style="text-align: right!important;">
+            <button id="submit-button" class="ui button white">絞り込み</button>
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  </div>
+
+  <div class="pusher">
     <%= yield %>
-  </body>
-  
+  </div>
+
+
+</body>
+
 </html>

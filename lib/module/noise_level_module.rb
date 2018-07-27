@@ -5,7 +5,7 @@ module NoiseLevel
     delta = 0.00015
     cnt = 0
 
-    data_list = CSV.read("map.csv")
+    data_list = CSV.read("#{Rails.root}/lib/module/map.csv")
     data_list.each do |data|
       if lat >= (data[1].to_f - delta) && lat <= (data[2].to_f + delta)
         if lon >= (data[1].to_f - delta) && lon <= (data[2].to_f + delta)
@@ -17,6 +17,8 @@ module NoiseLevel
     level = (cnt / 5000).round
     if level > 10
       level = 10
+    elsif level == 0
+      level = 1
     end
     level
   end

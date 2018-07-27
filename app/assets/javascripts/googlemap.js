@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('init... ');
     drawMapWithCurrentUserPosition();
     redrawPinsFromSearchForm();
-    // $('.ui.sidebar.bottom').sidebar('setting', 'transition', 'overlay');
+    $('div#sidebar-button').find('button').click(function(e) {
+        $('.ui.sidebar.top').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
+    });
     console.log('init done!');
 });
 
@@ -64,6 +66,10 @@ function putEstatePin(args) {
                 $('#estate-deposit').text(data.deposit + '万円');
                 $('#estate-gratuity_fee').text(data.gratuity_fee + '万円');
                 $('#estate-occupied_area').html('<div>' + data.occupied_area + 'm<sup>2</sup></div>');
+                $('#estate-noise').text(data.noise);
+                $('#estate-izakaya').text(data.izakaya);
+                $('#estate-crime').text(data.crime);
+                $('#estate-safe_level').text(data.safe_level);
                 console.log(data)
             }
         })
@@ -82,7 +88,7 @@ function putAllEstatePins(map) {
                     lng: d.longitude,
                     lat: d.latitude,
                     map: map,
-                    icon: { url: selectIcon({ peace: 3 }) }
+                    icon: { url: selectIcon({ peace: d.safe_level }) }
                 });
             });
         }
@@ -117,7 +123,7 @@ function redrawPinsFromSearchForm() {
                     lat: d.latitude,
                     lng: d.longitude,
                     map: map,
-                    icon: { url: selectIcon({ peace: 3 }) }
+                    icon: { url: selectIcon({ peace: d.safe_level }) }
                 })
             });
         });
