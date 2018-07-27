@@ -22,6 +22,7 @@ class CreateBaseTables < ActiveRecord::Migration[5.1]
       # 治安情報
       t.integer :noise
       t.integer :izakaya
+      t.integer :crime
 
       t.timestamps
     end

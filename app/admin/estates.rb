@@ -14,15 +14,73 @@ ActiveAdmin.register Estate do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+
+  area_crime_level = {
+    azuma: 43,
+    amakubo: 52,
+    gakuenno_mori: 18,
+    kasuga: 36,
+    kaname: 1,
+    kurihara: 5,
+    kenkyuu_gakuen: 47,
+    sakura: 10,
+    shibasaki: 4,
+    tsumaki: 4,
+    tennoudai: 16,
+    hanabatake: 10,
+    higashi_hiratsuka: 3
+  }
+
   active_admin_importable do |model, hash|
+    # 騒音レベルの計算
     noise = NoiseLevel.get_noise_level(hash[:latitude].to_f, hash[:longitude].to_f)
+    # 居酒屋レベルの計算
     izakaya = hash[:izakaya].to_f / 3
     if izakaya == 0
       izakaya = 1
-    elsif izakaya > 10
+    elsif izakaya >= 9.6
       izakaya = 10
     end
-    izakaya = izakaya.round
+    izakaya = izakaya.to_i
+    # 犯罪レベルの計算
+    address = hash[:address].force_encoding('UTF-8')
+    crime_num = nil
+    if address.match(/吾妻/)
+      crime_num = area_crime_level[:azuma]
+    elsif address.match(/天久保/)
+      crime_num = area_crime_level[:amakubo]
+    elsif address.match(/学園の森/)
+      crime_num = area_crime_level[:gakuenno_mori]
+    elsif address.match(/春日/)
+      crime_num = area_crime_level[:kasuga]
+    elsif address.match(/要/)
+      crime_num = area_crime_level[:kaname]
+    elsif address.match(/栗原/)
+      crime_num = area_crime_level[:kurihara]
+    elsif address.match(/研究学園/)
+      crime_num = area_crime_level[:kenkyuu_gakuen]
+    elsif address.match(/桜/)
+      crime_num = area_crime_level[:sakura]
+    elsif address.match(/柴崎/)
+      crime_num = area_crime_level[:shibasaki]
+    elsif address.match(/妻木/)
+      crime_num = area_crime_level[:tsumaki]
+    elsif address.match(/天王台/)
+      crime_num = area_crime_level[:tennoudai]
+    elsif address.match(/花畑/)
+      crime_num = area_crime_level[:hanabatake]
+    elsif address.match(/東平塚/)
+      crime_num = area_crime_level[:higashi_hiratsuka]
+    end
+    crime = crime_num.to_f / 5
+    if crime == 0
+      crime = 1
+    elsif crime > 9.6
+      crime = 10
+    end
+    crime.to_i
+
+    # データ作成
     model.create(
       name:               hash[:name],
       latitude:           hash[:latitude].to_f,
@@ -42,6 +100,7 @@ ActiveAdmin.register Estate do
       occupied_area:      hash[:occupied_area].force_encoding('UTF-8').gsub('m', '').to_f,
       noise:              noise,
       izakaya:            izakaya,
+      crime:              crime,
       note:               hash[:note]
     )
   end

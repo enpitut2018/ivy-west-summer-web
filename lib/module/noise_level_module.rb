@@ -17,6 +17,8 @@ module NoiseLevel
     level = (cnt / 5000).round
     if level > 10
       level = 10
+    elsif level == 0
+      level = 1
     end
     level
   end
