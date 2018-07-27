@@ -16,9 +16,9 @@ safe_level_ave = safe_sum.to_f / data_num
 safe_level = nil
 if safe_level_ave <= 3
   safe_level = 1
-elsif 3 < safe_level_ave && safe_level_ave < 7
+elsif 3 < safe_level_ave && safe_level_ave < 6
   safe_level = 2
-elsif 7 <= safe_level_ave
+elsif 6 <= safe_level_ave
   safe_level = 3
 end
 

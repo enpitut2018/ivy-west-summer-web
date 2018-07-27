@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", function() {
     $('div#sidebar-button').find('button').click(function(e) {
         $('.ui.sidebar.top').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
     });
+    $('.ui.sidebar.top').find('button').click(function(e) {
+        $('.ui.sidebar.top').find('button').text('... 検索中です。').prop("disabled", true);
+    })
     console.log('init done!');
 });
 
@@ -47,9 +50,6 @@ function putEstatePin(args) {
             url: 'api/v1/estates/' + marker.title,
             type: 'get',
             success: function(data) {
-                //bug
-                uimodal = $('.ui.modal');
-                //bug
                 $('.ui.modal').modal('show');
                 $('#estate-name').text(data.name);
                 $('#estate-latitude').text(data.latitude);
@@ -126,6 +126,8 @@ function redrawPinsFromSearchForm() {
                     icon: { url: selectIcon({ peace: d.safe_level }) }
                 })
             });
+        }).then(function() {
+            $('.ui.sidebar.top').find('button').text('絞り込み').prop("disabled", false);
         });
     });
 }
