@@ -22,7 +22,7 @@ function drawMapWithCurrentUserPosition() {
                         zoom: 14
                     });
                 // Userのピンを追加
-                putPin({ lng: data.latitude, lat: data.longitude, map: map, title: "user", icon: { url: "icons/icon-user.png" } });
+                putPin({ lat: data.latitude, lng: data.longitude, map: map, title: "user", icon: { url: "icons/icon-user.png" } });
                 // 不動産DBから全てのピンを追加。
                 putAllEstatePins(map);
             },
@@ -40,24 +40,31 @@ function putEstatePin(args) {
     // pinを消す時のためにmarkerを保存して置く。
     MarkerArray.push(marker);
     // 一回しか発火しない
-    var listener = google.maps.event.addListenerOnce(marker, "click", function(params) {
+    var listener = google.maps.event.addListener(marker, "click", function(params) {
         $.ajax({
             url: 'api/v1/estates/' + marker.title,
             type: 'get',
             success: function(data) {
                 //bug
-                console.log($('.ui.modal').modal);
                 uimodal = $('.ui.modal');
                 //bug
                 $('.ui.modal').modal('show');
-                $('#form-name').val(data.name);
-                $('#form-longitude').val(data.longitude);
-                $('#form-latitude').val(data.latitude);
-                $('#form-price').val(data.price);
-                $('#form-address').val(data.address);
-                $('#form-years').val(data.year);
-                $('#form-floor-plan').val(data.floor_plan);
-                console.log(data);
+                $('#estate-name').text(data.name);
+                $('#estate-latitude').text(data.latitude);
+                $('#estate-longitude').text(data.longitude);
+                $('#estate-longitude').text(data.longitude);
+                $('#estate-price').text(data.price + '万円');
+                $('#estate-address').text(data.address);
+                $('#estate-years').text('築' + data.years + '年');
+                $('#estate-floor_plan').text(data.floor_plan);
+                $('#estate-location1').text(data.location1);
+                $('#estate-height').text(data.height + '階建');
+                $('#estate-floor').text(data.floor + '階');
+                $('#estate-administration_fee').text(data.administration_fee + '円');
+                $('#estate-deposit').text(data.deposit + '万円');
+                $('#estate-gratuity_fee').text(data.gratuity_fee + '万円');
+                $('#estate-occupied_area').html('<div>' + data.occupied_area + 'm<sup>2</sup></div>');
+                console.log(data)
             }
         })
     })
@@ -85,7 +92,7 @@ function putAllEstatePins(map) {
 function putPin(args) {
     var marker = new google.maps.Marker({
         map: args.map,
-        position: new google.maps.LatLng(args.lng, args.lat),
+        position: new google.maps.LatLng(args.lat, args.lng),
         title: args.name,
         icon: args.icon,
     });
@@ -94,22 +101,27 @@ function putPin(args) {
 
 function redrawPinsFromSearchForm() {
     // search-formをサブミットしたら発火
-    $('submit').submit(function(event) {
+    $('#submit-button').click(function(event) {
+        // eventの中にformが
+        event.preventDefault();
         $.ajax({
-            url: '/search',
-            type: 'get',
-            data: $form.serialize(),
-            success: function(data) {
-                //ピンを全て消す。
-                MarkerArray.forEach(function(marker, idx) { marker.setMap(null) })
-                data.forEach(function(d) {
-                    // ピンを再描画
-                    putPin();
-                    console.log(d);
-                });
-            }
-        })
-    })
+            url: 'api/v1/estates?' + $('form#search-form').serialize(),
+            type: 'get'
+        }).done(function(data) {
+            //ピンを全て消す。
+            MarkerArray.forEach(function(marker, idx) { marker.setMap(null) });
+            console.log(data);
+            data.forEach(function(d) {
+                putEstatePin({
+                    name: d.name,
+                    lat: d.latitude,
+                    lng: d.longitude,
+                    map: map,
+                    icon: { url: selectIcon({ peace: 3 }) }
+                })
+            });
+        });
+    });
 }
 
 function selectIcon(args) {
