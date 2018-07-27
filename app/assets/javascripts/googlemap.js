@@ -30,7 +30,12 @@ function drawMapWithCurrentUserPosition() {
                 google.maps.event.addListener(sview,'visible_changed',function(){
                     if(!(is_sview)){
 
-                      MarkerArray.forEach(function(marker, idx) { marker.setMap(null) });
+                      MarkerArray.forEach(function(marker, idx) {
+                        console.log(marker.icon.scaledSize)
+                        //marker.icon.scaledSize = new google.maps.Size(500, 500)
+                        marker.setMap(null)
+                      });
+
                       putAllEstatePins({map: map, scaledSize: new google.maps.Size(500, 500)});
                       console.log('zoom')
                       is_sview = true;
@@ -54,10 +59,11 @@ function drawMapWithCurrentUserPosition() {
                 // Userのピンを追加
                 putPin({ lat: data.latitude, lng: data.longitude, map: map, title: "user", icon: { url: "icons/icon-user.png" } });
                 // 不動産DBから全てのピンを追加。
-                putAllEstatePins({map: map, scaledSize: new google.maps.Size(40, 40)});
+                putAllEstatePins({map: map, scaledSize: new google.maps.Size(30, 36)});
             },
             function(error) {
-                console.log('geolocation error');
+                console.log('geolocation error');sjs
+                sjjisl
             });
     } else {
         alert("geolocation非対応!!");
