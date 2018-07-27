@@ -14,5 +14,8 @@ module Myapp
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # lib以下のファイルを読み込み
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
   end
 end

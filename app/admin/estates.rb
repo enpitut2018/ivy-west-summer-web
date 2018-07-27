@@ -1,3 +1,6 @@
+require_relative '../../lib/module/noise_level_module.rb'
+include NoiseLevel
+
 ActiveAdmin.register Estate do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -12,6 +15,7 @@ ActiveAdmin.register Estate do
 #   permitted
 # end
   active_admin_importable do |model, hash|
+    noise = NoiseLevel.get_noise_level(hash[:latitude].to_f, hash[:longitude].to_f)
     model.create(
       name:               hash[:name],
       latitude:           hash[:latitude].to_f,
@@ -29,6 +33,7 @@ ActiveAdmin.register Estate do
       deposit:            hash[:dep_gra].force_encoding('UTF-8').gsub('万円', '').split('/')[0].to_f,
       gratuity_fee:       hash[:dep_gra].force_encoding('UTF-8').gsub('万円', '').split('/')[1].to_f,
       occupied_area:      hash[:occupied_area].force_encoding('UTF-8').gsub('m', '').to_f,
+      noise:              noise,
       note:               hash[:note]
     )
   end

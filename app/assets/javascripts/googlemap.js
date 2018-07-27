@@ -64,6 +64,7 @@ function putEstatePin(args) {
                 $('#estate-deposit').text(data.deposit + '万円');
                 $('#estate-gratuity_fee').text(data.gratuity_fee + '万円');
                 $('#estate-occupied_area').html('<div>' + data.occupied_area + 'm<sup>2</sup></div>');
+                $('#estate-noise').text(data.noise);
                 console.log(data)
             }
         })

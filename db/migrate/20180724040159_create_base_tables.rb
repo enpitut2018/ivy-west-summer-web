@@ -1,6 +1,7 @@
 class CreateBaseTables < ActiveRecord::Migration[5.1]
   def change
     create_table :estates do |t|
+      # 不動産基本情報
       t.string  :name, null: false
       t.decimal :latitude,  precision: 9, scale: 6, null: false
       t.decimal :longitude, precision: 9, scale: 6, null: false
@@ -18,6 +19,8 @@ class CreateBaseTables < ActiveRecord::Migration[5.1]
       t.decimal :gratuity_fee, precision: 4, scale: 1
       t.decimal :occupied_area, precision: 6, scale: 2
       t.text  :note
+      # 治安情報
+      t.integer :noise
 
       t.timestamps
     end
