@@ -39,6 +39,7 @@ json.administration_fee estate.administration_fee
 json.deposit            estate.deposit
 json.gratuity_fee       estate.gratuity_fee
 json.occupied_area      estate.occupied_area
+json.url                estate.url
 json.noise              estate.noise
 json.izakaya            estate.izakaya
 json.crime              estate.crime

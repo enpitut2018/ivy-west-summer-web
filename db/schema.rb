@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20180726012652) do
     t.decimal "deposit", precision: 4, scale: 1
     t.decimal "gratuity_fee", precision: 4, scale: 1
     t.decimal "occupied_area", precision: 6, scale: 2
+    t.string "url"
     t.text "note"
     t.integer "noise"
     t.integer "izakaya"

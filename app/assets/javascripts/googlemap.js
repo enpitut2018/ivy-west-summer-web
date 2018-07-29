@@ -51,21 +51,27 @@ function putEstatePin(args) {
             type: 'get',
             success: function(data) {
                 $('.ui.modal').modal('show');
+                var years_text = data.years ? '築' + data.years + '年' : '-';
+                var height_text = data.height ? data.height + '階建' : '-';
+                var administration_fee_text = data.administration_fee ? data.administration_fee + '円' : '-';
+                var deposit_text = data.deposit ? data.deposit + '万円' : '-';
+                var gratuity_fee_text = data.gratuity_fee ? data.gratuity_fee + '万円' : '-';
                 $('#estate-name').text(data.name);
                 $('#estate-latitude').text(data.latitude);
                 $('#estate-longitude').text(data.longitude);
-                $('#estate-longitude').text(data.longitude);
                 $('#estate-price').text(data.price + '万円');
                 $('#estate-address').text(data.address);
-                $('#estate-years').text('築' + data.years + '年');
+                $('#estate-years').text(years_text);
                 $('#estate-floor_plan').text(data.floor_plan);
                 $('#estate-location1').text(data.location1);
-                $('#estate-height').text(data.height + '階建');
+                $('#estate-height').text(height_text);
                 $('#estate-floor').text(data.floor + '階');
-                $('#estate-administration_fee').text(data.administration_fee + '円');
-                $('#estate-deposit').text(data.deposit + '万円');
-                $('#estate-gratuity_fee').text(data.gratuity_fee + '万円');
+                $('#estate-administration_fee').text(administration_fee_text);
+                $('#estate-deposit').text(deposit_text);
+                $('#estate-gratuity_fee').text(gratuity_fee_text);
                 $('#estate-occupied_area').html('<div>' + data.occupied_area + 'm<sup>2</sup></div>');
+                $('#estate-url').text(data.url);
+                $('#estate-url').attr('href', data.url);
                 $('#estate-noise').text(data.noise);
                 $('#estate-izakaya').text(data.izakaya);
                 $('#estate-crime').text(data.crime);
