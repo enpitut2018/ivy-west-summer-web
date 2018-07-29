@@ -51,25 +51,98 @@ function putEstatePin(args) {
             type: 'get',
             success: function(data) {
                 $('.ui.modal').modal('show');
+                var years_text = data.years ? '築' + data.years + '年' : '-';
+                var height_text = data.height ? data.height + '階建' : '-';
+                var administration_fee_text = data.administration_fee ? data.administration_fee + '円' : '-';
+                var deposit_text = data.deposit ? data.deposit + '万円' : '-';
+                var gratuity_fee_text = data.gratuity_fee ? data.gratuity_fee + '万円' : '-';
+                var noise = (data.noise !== null) ? data.noise : 'データなし';
+                var izakaya = (data.izakaya !== null) ? data.izakaya : 'データなし';
+                var crime = (data.crime !== null) ? data.crime : 'データなし';
+                // 騒音レベルアイコン作成
+                var noise_text = ''
+                for (var i = 1; i <= data.noise; i++) {
+                    var color = ''
+                    if (data.noise <= 3) {
+                        color = 'blue'
+                    } else if (3 < data.noise && data.noise < 6) {
+                        color = 'orange'
+                    } else {
+                        color = 'red'
+                    }
+                    noise_text = noise_text + '<i class="' + color + ' bullhorn icon"></i>';
+                }
+                for (var i = 1; i <= 10 - data.noise; i++) {
+                    noise_text = noise_text + '<i class="disabled bullhorn icon"></i>';
+                }
+                // 周辺居酒屋レベルアイコン作成
+                var izakaya_text = ''
+                for (var i = 1; i <= data.izakaya; i++) {
+                    var color = ''
+                    if (data.izakaya <= 3) {
+                        color = 'blue'
+                    } else if (3 < data.izakaya && data.izakaya < 6) {
+                        color = 'orange'
+                    } else {
+                        color = 'red'
+                    }
+                    izakaya_text = izakaya_text + '<i class="' + color + ' beer icon"></i>';
+                }
+                for (var i = 1; i <= 10 - data.izakaya; i++) {
+                    izakaya_text = izakaya_text + '<i class="disabled beer icon"></i>';
+                }
+                // 犯罪レベルアイコン作成
+                var crime_text = ''
+                for (var i = 1; i <= data.crime; i++) {
+                    var color = ''
+                    if (data.crime <= 3) {
+                        color = 'blue'
+                    } else if (3 < data.crime && data.crime < 6) {
+                        color = 'orange'
+                    } else {
+                        color = 'red'
+                    }
+                    crime_text = crime_text + '<i class="' + color + ' bomb icon"></i>';
+                }
+                for (var i = 1; i <= 10 - data.crime; i++) {
+                    crime_text = crime_text + '<i class="disabled bomb icon"></i>';
+                }
+                // 危険レベルアイコン作成
+                var safe_level_text = ''
+                for (var i = 1; i <= data.safe_level; i++) {
+                    var color = ''
+                    if (data.safe_level <= 3) {
+                        color = 'blue'
+                    } else if (3 < data.safe_level && data.safe_level < 6) {
+                        color = 'orange'
+                    } else {
+                        color = 'red'
+                    }
+                    safe_level_text = safe_level_text + '<i class="' + color + ' exclamation triangle icon"></i>';
+                }
+                for (var i = 1; i <= 10 - data.safe_level; i++) {
+                    safe_level_text = safe_level_text + '<i class="disabled exclamation triangle icon"></i>';
+                }
                 $('#estate-name').text(data.name);
                 $('#estate-latitude').text(data.latitude);
                 $('#estate-longitude').text(data.longitude);
-                $('#estate-longitude').text(data.longitude);
                 $('#estate-price').text(data.price + '万円');
                 $('#estate-address').text(data.address);
-                $('#estate-years').text('築' + data.years + '年');
+                $('#estate-years').text(years_text);
                 $('#estate-floor_plan').text(data.floor_plan);
                 $('#estate-location1').text(data.location1);
-                $('#estate-height').text(data.height + '階建');
+                $('#estate-height').text(height_text);
                 $('#estate-floor').text(data.floor + '階');
-                $('#estate-administration_fee').text(data.administration_fee + '円');
-                $('#estate-deposit').text(data.deposit + '万円');
-                $('#estate-gratuity_fee').text(data.gratuity_fee + '万円');
+                $('#estate-administration_fee').text(administration_fee_text);
+                $('#estate-deposit').text(deposit_text);
+                $('#estate-gratuity_fee').text(gratuity_fee_text);
                 $('#estate-occupied_area').html('<div>' + data.occupied_area + 'm<sup>2</sup></div>');
-                $('#estate-noise').text(data.noise);
-                $('#estate-izakaya').text(data.izakaya);
-                $('#estate-crime').text(data.crime);
-                $('#estate-safe_level').text(data.safe_level);
+                $('#estate-url').text('リンク先へ');
+                $('#estate-url').attr('href', data.url);
+                $('#estate-noise').html(noise_text + '(' + noise + ')');
+                $('#estate-izakaya').html(izakaya_text + '(' + izakaya + ')');
+                $('#estate-crime').html(crime_text + '(' + crime + ')');
+                $('#estate-safe_level').html(safe_level_text + '(' + data.safe_level + ')');
                 console.log(data)
             }
         })
@@ -138,8 +211,8 @@ function selectIcon(args) {
         //var peace = args.peace
         //var price = args.price
     if (label == "user") return "icons/icon-user.png";
-    else if (peace == 1) return "icons/icon-home-blue.png";
-    else if (peace == 2) return "icons/icon-home-orange.png";
-    else if (peace == 3) return "icons/icon-home-red.png";
+    else if (peace <= 3) return "icons/icon-home-blue.png";
+    else if (3 < peace && peace < 6) return "icons/icon-home-orange.png";
+    else if (6 <= peace) return "icons/icon-home-red.png";
     else return "icons/icon-apart.png"
 }
