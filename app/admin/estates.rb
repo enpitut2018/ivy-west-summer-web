@@ -80,24 +80,43 @@ ActiveAdmin.register Estate do
     end
     crime.to_i
 
+    # 各項目の入力
+    latitude = hash[:latitude].present? ? hash[:latitude].to_f : nil
+    longitude = hash[:longitude].present? ? hash[:longitude].to_f : nil
+    years = hash[:years].present? ? hash[:years].force_encoding('UTF-8').gsub('築', '').gsub('年', '').to_i : nil
+    height = hash[:height].present? ? hash[:height].force_encoding('UTF-8').gsub('階建', '').to_i : nil
+    administration_fee = nil
+    unless hash[:administration_fee] == '-'
+      administration_fee = hash[:administration_fee].force_encoding('UTF-8').gsub('円', '').to_i
+    end
+    deposit = nil
+    unless hash[:dep_gra].force_encoding('UTF-8').split('/')[0] == '-'
+      deposit = hash[:dep_gra].force_encoding('UTF-8').gsub('万円', '').split('/')[0].to_f
+    end
+    gratuity_fee = nil
+    unless hash[:dep_gra].force_encoding('UTF-8').split('/')[1] == '-'
+      gratuity_fee = hash[:dep_gra].force_encoding('UTF-8').gsub('万円', '').split('/')[1].to_f
+    end
+
     # データ作成
     model.create(
       name:               hash[:name],
-      latitude:           hash[:latitude].to_f,
-      longitude:          hash[:longitude].to_f,
+      latitude:           latitude,
+      longitude:          longitude,
       price:              hash[:price].force_encoding('UTF-8').gsub('万円', '').to_f,
       address:            hash[:address],
-      years:              hash[:years].force_encoding('UTF-8').gsub('築', '').gsub('年', '').to_i,
+      years:              years,
       floor_plan:         hash[:floor_plan],
       location1:          hash[:location1],
       location2:          hash[:location2],
       location3:          hash[:location3],
-      height:             hash[:height].force_encoding('UTF-8').gsub('階建', '').to_i,
+      height:             height,
       floor:              hash[:floor].force_encoding('UTF-8').gsub('階', '').to_i,
-      administration_fee: hash[:administration_fee].force_encoding('UTF-8').gsub('円', '').to_i,
-      deposit:            hash[:dep_gra].force_encoding('UTF-8').gsub('万円', '').split('/')[0].to_f,
-      gratuity_fee:       hash[:dep_gra].force_encoding('UTF-8').gsub('万円', '').split('/')[1].to_f,
+      administration_fee: administration_fee,
+      deposit:            deposit,
+      gratuity_fee:       gratuity_fee,
       occupied_area:      hash[:occupied_area].force_encoding('UTF-8').gsub('m', '').to_f,
+      url:                hash[:url],
       noise:              noise,
       izakaya:            izakaya,
       crime:              crime,

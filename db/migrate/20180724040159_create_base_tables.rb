@@ -18,7 +18,8 @@ class CreateBaseTables < ActiveRecord::Migration[5.1]
       t.decimal :deposit, precision: 4, scale: 1
       t.decimal :gratuity_fee, precision: 4, scale: 1
       t.decimal :occupied_area, precision: 6, scale: 2
-      t.text  :note
+      t.string  :url
+      t.text    :note
       # 治安情報
       t.integer :noise
       t.integer :izakaya
