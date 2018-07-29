@@ -13,14 +13,18 @@ if estate.crime.present?
   data_num += 1
 end
 safe_level_ave = safe_sum.to_f / data_num
-safe_level = nil
-if safe_level_ave <= 3
-  safe_level = 1
-elsif 3 < safe_level_ave && safe_level_ave < 6
-  safe_level = 2
-elsif 6 <= safe_level_ave
-  safe_level = 3
+if data_num != 0
+  safe_level = safe_level_ave.to_i
+else
+  safe_level = 0
 end
+# if safe_level_ave <= 3
+#   safe_level = 1
+# elsif 3 < safe_level_ave && safe_level_ave < 6
+#   safe_level = 2
+# elsif 6 <= safe_level_ave
+#   safe_level = 3
+# end
 
 json.id                 estate.id
 json.name               estate.name
