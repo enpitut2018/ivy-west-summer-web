@@ -7,7 +7,10 @@
 
 ## URL
 
-* https://ivy-west-summer-web.herokuapp.com
+* 面画面
+  * https://ivy-west-summer-web.herokuapp.com
+* 管理画面
+  * https://ivy-west-summer-web.herokuapp.com/admin
 
 
 ## メンバー
