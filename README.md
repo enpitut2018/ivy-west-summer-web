@@ -1,4 +1,4 @@
-## IVY WEST 202 「eiZUUMO」
+## IVY WEST 202 「SUUM's」
 
 ## エレベーターピッチ
 
