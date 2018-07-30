@@ -7,7 +7,7 @@
 
 ## URL
 
-* 面画面
+* 表画面
   * https://ivy-west-summer-web.herokuapp.com
 * 管理画面
   * https://ivy-west-summer-web.herokuapp.com/admin
