@@ -18,3 +18,7 @@
 * https://github.com/hiroto0227
 * https://github.com/sekimoriko
 * https://github.com/ubi-takumin
+
+## 成果報告会
+ * プレゼンファイル
+    *  https://drive.google.com/open?id=130n6sa-UL43EQBwP4HvY_gJqtsPwYwws
