@@ -1,0 +1,11 @@
+こんな感じで使える。返り値はkm。保存してある避難所はつくば市だけです。
+-----------
+require './hinan_distance_module'
+include HinanDistance
+
+HinanDistance.get_hinan_distance(36.0646140,140.0831090)
+# ↑のパラメータが不動産の緯度経度
+-----------
+[出力]
+0.6172221172509103(km)
+-----------
